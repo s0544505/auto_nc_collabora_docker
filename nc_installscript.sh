@@ -14,7 +14,7 @@ read -p 'Please provide a password for the new User: ' newuserpasswordvar
 read -p 'Please provide a password for the PostreSQL-Database. Use a very strong one!: ' postgresqlpwvar
 read -p 'Please provide the Domain to your new Nextcloud (usually cloud.yourdomain.com): ' ncdomainvar
 read -p 'Please provide the Domain for your new Collabora-CODE (usually office.yourdomain.com): ' officedomainvar
-echo  "Please provide a working mailaddress to receive security-related mails from Letsencrypt: " lemailvar
+echo  "Please provide a working mailaddress to receive security-related mails from Letsencrypt: "
 read -p 'Warning! Just enter the part of your mailadress before the @ symbol. for example john.doe: ' lemailvar1
 read -p 'Warning! Just enter the part of your mailadress after the @ symbol. for example gmail.com: ' lemailvar2
 
