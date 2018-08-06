@@ -14,7 +14,9 @@ read -p 'Please provide a password for the new User: ' newuserpasswordvar
 read -p 'Please provide a password for the PostreSQL-Database. Use a very strong one!: ' postgresqlpwvar
 read -p 'Please provide the Domain to your new Nextcloud (usually cloud.yourdomain.com): ' ncdomainvar
 read -p 'Please provide the Domain for your new Collabora-CODE (usually office.yourdomain.com): ' officedomainvar
-read -p 'Please provide a working mailaddress to receive security-related mails from Letsencrypt: ' lemailvar
+echo  "Please provide a working mailaddress to receive security-related mails from Letsencrypt: " lemailvar
+read -p 'Warning! Just enter the part of your mailadress before the @ symbol. for example john.doe: ' lemailvar1
+read -p 'Warning! Just enter the part of your mailadress after the @ symbol. for example gmail.com: ' lemailvar2
 
 # remove the known host, ifn needed
 #sudo ssh-keygen -f "/home/$User/.ssh/known_hosts" -R "$serveraddress"
@@ -32,8 +34,8 @@ echo 'installing docker-compose'; sudo curl -L https://github.com/docker/compose
 sudo chmod +x /usr/local/bin/docker-compose;
 echo 'cloning the needed git repository'; git clone https://github.com/s0544505/nc-collabora-docker-compose.git; cd nc-collabora-docker-compose;
 echo '..copying environmentvariables'; 
-sed -e 's@ENV_POSTGRESUSER@'"$postgresqluservar"'@' -e 's@ENV_POSTGRESPW@'"$postgresqlpwvar"'@' -e 's@ENV_VIRTUALHOST@'"$ncdomainvar"'@' -e 's@ENV_LETSENCRYPTHOST@'"$ncdomainvar"'@' -e 's@ENV_LETSENCRYPTEMAIL@'"$lemailvar"'@' ./env_files/nc_db.env > ./nc_collabora_docker/nc_db.env;
-sed -e 's@ENV_CVIRTUALHOST@'"$officedomainvar"'@' -e 's@ENV_DOMAIN@'"$ncdomainvar"'@' -e 's@ENV_HOSTNAME@'"$officedomainvar"'@' -e 's@ENV_LETSENCRYPTHOST@'"$officedomainvar"'@' -e 's@ENV_LETSENCRYPTEMAIL@'"$lemailvar"'@' ./env_files/collabora.env > ./nc_collabora_docker/collabora.env; 
+sed -e 's@ENV_POSTGRESUSER@'"$postgresqluservar"'@' -e 's@ENV_POSTGRESPW@'"$postgresqlpwvar"'@' -e 's@ENV_VIRTUALHOST@'"$ncdomainvar"'@' -e 's@ENV_LETSENCRYPTHOST@'"$ncdomainvar"'@' -e 's@ENV1_LETSENCRYPTEMAIL@'"$lemailvar1"'@' -e 's@ENV2_LETSENCRYPTEMAIL@'"$lemailvar2"'@' ./env_files/nc_db.env > ./nc_collabora_docker/nc_db.env;
+sed -e 's@ENV_CVIRTUALHOST@'"$officedomainvar"'@' -e 's@ENV_DOMAIN@'"$ncdomainvar"'@' -e 's@ENV_HOSTNAME@'"$officedomainvar"'@' -e 's@ENV_LETSENCRYPTHOST@'"$officedomainvar"'@' -e 's@ENV1_LETSENCRYPTEMAIL@'"$lemailvar1"'@' -e 's@ENV2_LETSENCRYPTEMAIL@'"$lemailvar2"'@' ./env_files/collabora.env > ./nc_collabora_docker/collabora.env; 
 echo 'running docker-compose';
 cd nc_collabora_docker; docker-compose up -d"
 
