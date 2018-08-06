@@ -1,11 +1,11 @@
 #!/bin/sh
 #inform User
 echo "Welcome to the semiautomatic Nextcloud installation script."
-echo "You will be often asked to enter passwords, make sure they are entered correctly."
+echo "You will often be asked to enter passwords, make sure they are entered correctly."
 echo "Write down newly assigned user names and passwords and keep them in a safe place."
 echo "KEEP IN MIND: everything (including passwords) can just be entered once. Therefore passwords sometimes are shown while typing..."
 #retrieve User-inputs and save them to variables
-read -p 'Please enter the root-Username provided by your Server hoster, usually its simply root: ' rootuservar
+read -p 'Please enter the root-Username provided by your Server hoster, usually it is simply root: ' rootuservar
 read -p 'Now enter the IP-Adress to your server: ' serveraddressvar
 echo "We will create a new User for security purposes... Please enter the name for the new User..."
 read -p 'Username: ' newuservar
@@ -18,10 +18,10 @@ echo  "Please provide a working mailaddress to receive security-related mails fr
 read -p 'Warning! Just enter the part of your mailadress before the @ symbol. for example john.doe: ' lemailvar1
 read -p 'Warning! Just enter the part of your mailadress after the @ symbol. for example gmail.com: ' lemailvar2
 
-# remove the known host, ifn needed
+# remove the known host, if needed
 #sudo ssh-keygen -f "/home/$User/.ssh/known_hosts" -R "$serveraddress"
 
-echo "Please enter the root passwort for your server, then choose yes and hit [Return] when aksed to.."
+echo "Please enter the root password for your server, then choose yes and hit [Return] when asked to.."
 #ssh to remote, login as root, create new user and enable sudo
 ssh -t $rootuservar@$serveraddressvar "echo 'Creating new User...'; sudo useradd $newuservar -d /home/$newuservar -m; sudo usermod -aG sudo $newuservar; usermod -s /bin/bash $newuservar; sudo echo $newuservar:$newuserpasswordvar | sudo chpasswd; echo 'preparing docker group...'; sudo groupadd docker ; sudo usermod -aG docker $newuservar;"
 
